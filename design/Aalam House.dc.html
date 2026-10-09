@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/broadsheet-d3716d4c-a1b6-42ac-ba11-46d93647b79a/styles.css">
+<style>html{scroll-behavior:smooth}body{margin:0;background:#faf4e8;color:#2b2a26;font-family:var(--font-body,'Source Serif 4',serif)}a{color:#2f7d68;text-decoration:none}a:hover{color:#1f5a4a}::selection{background:#cfe3d4}</style>
+</helmet>
+<div style="background:#faf4e8;min-height:100vh;font-family:'Source Serif 4',Georgia,serif;color:#2b2a26">
+
+<header id="top" style="display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;padding:28px clamp(20px,5vw,72px)">
+  <a href="#top" style="white-space:nowrap;flex:none;line-height:1.2;font-size:30px;font-weight:600;letter-spacing:-0.01em;color:#2b2a26">Аалам <span style="color:#2f7d68;font-style:italic">Хаус</span></a>
+  <nav style="display:flex;gap:clamp(16px,2.5vw,36px);flex-wrap:wrap;font-size:18px">
+    <a href="#services" style="color:#2b2a26" style-hover="color:#2f7d68">Услуги</a>
+    <a href="#places" style="color:#2b2a26" style-hover="color:#2f7d68">Направления</a>
+    <a href="#about" style="color:#2b2a26" style-hover="color:#2f7d68">О нас</a>
+    <a href="#how" style="color:#2b2a26" style-hover="color:#2f7d68">Как мы работаем</a>
+    <a href="#contacts" style="color:#2b2a26" style-hover="color:#2f7d68">Контакты</a>
+  </nav>
+  <a href="tel:+996555000000" style="white-space:nowrap;font-size:18px;font-weight:600;color:#2b2a26">+996 555 000 000</a>
+</header>
+
+<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(16px,3vw,40px) clamp(20px,5vw,72px) clamp(56px,8vw,112px)">
+  <div style="max-width:620px">
+    <div style="display:inline-block;background:#f1cfc8;color:#5a2d26;padding:6px 14px;border-radius:2px;font-size:16px">Аренда недвижимости по всему Кыргызстану</div>
+    <h1 style="font-size:clamp(40px,6vw,76px);line-height:1.04;margin:24px 0 0;font-weight:600;letter-spacing:-0.02em">Дом на берегу Иссык-Куля — <em style="color:#2f7d68">как дома</em></h1>
+    <p style="font-size:21px;line-height:1.55;margin:24px 0 0;color:#4a463e;text-wrap:pretty">Аалам Хаус подбирает и сдаёт в аренду квартиры, дома, коттеджи и гостевые дома. Основное направление — Иссык-Куль, но работаем в Бишкеке, Оше, Караколе, Нарыне и других городах страны.</p>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:36px">
+      <a href="#contacts" style="background:#2f7d68;color:#fff;padding:16px 30px;border-radius:2px;font-size:19px;font-weight:600" style-hover="background:#256655;color:#fff">Подобрать жильё</a>
+      <a href="#services" style="background:#ead9bd;color:#2b2a26;padding:16px 30px;border-radius:2px;font-size:19px" style-hover="background:#e0cba7;color:#2b2a26">Наши услуги</a>
+    </div>
+  </div>
+  <div style="position:relative">
+    <div style="position:absolute;inset:24px -16px -16px 24px;background:#cfe3d4;border-radius:2px"></div>
+    <img src="uploads/hero-cottage.jpg" alt="Деревянный коттедж на берегу горного озера" style="position:relative;display:block;width:100%;aspect-ratio:4/4.4;object-fit:cover;border-radius:2px">
+  </div>
+</section>
+
+<section id="services" style="background:#ead9bd;padding:clamp(56px,8vw,104px) clamp(20px,5vw,72px)">
+  <h2 style="font-size:clamp(32px,4vw,52px);margin:0;font-weight:600;letter-spacing:-0.01em">Что мы предлагаем</h2>
+  <p style="font-size:20px;margin:12px 0 0;max-width:560px;color:#4a463e">Подберём жильё под ваш бюджет, даты и состав семьи.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:20px;margin-top:48px">
+    <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+      <div style="background:{{ s.bg }};padding:28px;border-radius:2px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#4a463e">{{ s.kicker }}</div>
+        <div style="font-size:26px;font-weight:600;line-height:1.15">{{ s.title }}</div>
+        <div style="font-size:18px;line-height:1.5;color:#3d3a33">{{ s.text }}</div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="places" style="padding:clamp(56px,8vw,104px) clamp(20px,5vw,72px)">
+  <h2 style="font-size:clamp(32px,4vw,52px);margin:0;font-weight:600;letter-spacing:-0.01em">Направления</h2>
+  <p style="font-size:20px;margin:12px 0 0;max-width:620px;color:#4a463e">Главное — Иссык-Куль, у озера и в глубине побережья. Остальные города — по запросу.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(24px,4vw,56px);margin-top:48px">
+    <div>
+      <div style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#2f7d68">Иссык-Куль · северный берег</div>
+      <div style="font-size:30px;font-weight:600;margin-top:8px">Чолпон-Ата, Бостери, Кара-Ой, Чок-Тал</div>
+      <p style="font-size:18px;line-height:1.55;color:#4a463e;margin:10px 0 0">Пляжный сезон, гостевые дома и коттеджи на первой линии, от одного дня.</p>
+    </div>
+    <div>
+      <div style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#a0524a">Иссык-Куль · южный берег</div>
+      <div style="font-size:30px;font-weight:600;margin-top:8px">Тосор, Жети-Огуз, Каракол</div>
+      <p style="font-size:18px;line-height:1.55;color:#4a463e;margin:10px 0 0">Тишина, горы и ущелья, жильё для спокойного отдыха и долгих сроков.</p>
+    </div>
+    <div>
+      <div style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#8a6a2f">Вся страна</div>
+      <div style="font-size:30px;font-weight:600;margin-top:8px">Бишкек, Ош, Нарын, Джалал-Абад</div>
+      <p style="font-size:18px;line-height:1.55;color:#4a463e;margin:10px 0 0">Квартиры и офисы на длительный срок для жизни и работы.</p>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="background:#cfe3d4;padding:clamp(56px,8vw,104px) clamp(20px,5vw,72px)">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(24px,5vw,80px)">
+    <div>
+      <h2 style="font-size:clamp(32px,4vw,52px);margin:0;font-weight:600;letter-spacing:-0.01em">О компании</h2>
+    </div>
+    <div style="font-size:21px;line-height:1.6;color:#27342e;text-wrap:pretty">
+      <p style="margin:0">«Аалам» по-кыргызски — мир. Мы хотим, чтобы у каждого гостя и жителя был свой уютный мир: чистый, тёплый и без сюрпризов.</p>
+      <p style="margin:20px 0 0">Мы сами осматриваем каждый объект, фотографируем его как есть и называем честную цену. Владельцам берём на себя поиск арендаторов, заселение и контроль состояния жилья.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:32px;font-size:19px">
+        <div style="background:#faf4e8;padding:20px;border-radius:2px"><b>Проверенные объекты</b><br><span style="font-size:17px;color:#4a463e">Реальные фото и описание</span></div>
+        <div style="background:#faf4e8;padding:20px;border-radius:2px"><b>Прозрачный договор</b><br><span style="font-size:17px;color:#4a463e">Без скрытых платежей</span></div>
+        <div style="background:#faf4e8;padding:20px;border-radius:2px"><b>Поддержка 24/7</b><br><span style="font-size:17px;color:#4a463e">На связи в течение проживания</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how" style="padding:clamp(56px,8vw,104px) clamp(20px,5vw,72px)">
+  <h2 style="font-size:clamp(32px,4vw,52px);margin:0;font-weight:600;letter-spacing:-0.01em">Как мы работаем</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:32px;margin-top:48px">
+    <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+      <div>
+        <div style="font-size:64px;line-height:1;font-weight:600;color:#e5a99f">{{ st.n }}</div>
+        <div style="font-size:24px;font-weight:600;margin-top:10px">{{ st.title }}</div>
+        <div style="font-size:18px;line-height:1.5;color:#4a463e;margin-top:6px">{{ st.text }}</div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section style="background:#f1cfc8;padding:clamp(48px,7vw,88px) clamp(20px,5vw,72px)">
+  <h2 style="font-size:clamp(30px,3.6vw,46px);margin:0 0 36px;font-weight:600;color:#3d1f1a">Вопросы, которые задают чаще всего</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:28px 56px;color:#3d1f1a">
+    <sc-for list="{{ faq }}" as="f" hint-placeholder-count="4">
+      <div><div style="font-size:22px;font-weight:600">{{ f.q }}</div><div style="font-size:18px;line-height:1.5;margin-top:6px">{{ f.a }}</div></div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="contacts" style="padding:clamp(56px,8vw,104px) clamp(20px,5vw,72px)">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(32px,5vw,80px)">
+    <div>
+      <h2 style="font-size:clamp(32px,4vw,52px);margin:0;font-weight:600;letter-spacing:-0.01em">Контакты</h2>
+      <p style="font-size:20px;color:#4a463e;margin:12px 0 32px">Оставьте заявку или позвоните — ответим в течение часа.</p>
+      <div style="display:flex;flex-direction:column;gap:20px;font-size:21px">
+        <div><div style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#2f7d68">Телефон / WhatsApp</div><a href="tel:+996555000000" style="color:#2b2a26">+996 555 000 000</a></div>
+        <div><div style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#2f7d68">Почта</div><a href="mailto:info@aalamhouse.kg" style="color:#2b2a26">info@aalamhouse.kg</a></div>
+        <div><div style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#2f7d68">Офис</div>Чолпон-Ата, Иссык-Кульская область<br>Ежедневно, 9:00–20:00</div>
+        <div><div style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#2f7d68">Соцсети</div><a href="#contacts">Instagram</a> · <a href="#contacts">Telegram</a> · <a href="#contacts">WhatsApp</a></div>
+      </div>
+    </div>
+    <form onSubmit="{{ submit }}" style="background:#ead9bd;padding:clamp(24px,3vw,40px);border-radius:2px;display:flex;flex-direction:column;gap:18px;align-self:start">
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:26px;font-weight:600;line-height:1.3">Спасибо! Мы свяжемся с вами в ближайший час.</div>
+      </sc-if>
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div style="font-size:26px;font-weight:600">Заявка на аренду</div>
+          <label style="font-size:17px;display:flex;flex-direction:column;gap:6px">Ваше имя<input required placeholder="Айгуль" style="font:inherit;font-size:19px;padding:12px 14px;border:1px solid #cdb994;background:#faf4e8;border-radius:2px;color:#2b2a26"></label>
+          <label style="font-size:17px;display:flex;flex-direction:column;gap:6px">Телефон<input required type="tel" placeholder="+996" style="font:inherit;font-size:19px;padding:12px 14px;border:1px solid #cdb994;background:#faf4e8;border-radius:2px;color:#2b2a26"></label>
+          <label style="font-size:17px;display:flex;flex-direction:column;gap:6px">Что ищете
+            <select style="font:inherit;font-size:19px;padding:12px 14px;border:1px solid #cdb994;background:#faf4e8;border-radius:2px;color:#2b2a26"><option>Жильё на Иссык-Куле на отдых</option><option>Квартира на длительный срок</option><option>Дом или коттедж</option><option>Хочу сдать своё жильё</option></select>
+          </label>
+          <label style="font-size:17px;display:flex;flex-direction:column;gap:6px">Пожелания<textarea rows="3" placeholder="Даты, число гостей, бюджет" style="font:inherit;font-size:19px;padding:12px 14px;border:1px solid #cdb994;background:#faf4e8;border-radius:2px;color:#2b2a26;resize:vertical"></textarea></label>
+          <button type="submit" style="font:inherit;font-size:19px;font-weight:600;background:#2f7d68;color:#fff;border:0;padding:16px;border-radius:2px;cursor:pointer" style-hover="background:#256655">Отправить заявку</button>
+        </div>
+      </sc-if>
+    </form>
+  </div>
+</section>
+
+<footer style="background:#2b2a26;color:#ead9bd;padding:36px clamp(20px,5vw,72px);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:17px">
+  <div><b style="font-size:22px;color:#faf4e8">Аалам Хаус</b><br>Аренда недвижимости по всему Кыргызстану</div>
+  <div style="align-self:flex-end">© 2026 Аалам Хаус. Все права защищены.</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { sent: false };
+  renderVals() {
+    return {
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      submit: (e) => { e.preventDefault(); this.setState({ sent: true }); },
+      services: [
+        { bg: '#faf4e8', kicker: 'Отдых', title: 'Посуточная аренда', text: 'Квартиры, дома и коттеджи на Иссык-Куле от одной ночи.' },
+        { bg: '#cfe3d4', kicker: 'Дом', title: 'Долгосрочная аренда', text: 'Жильё на месяцы и годы в городах Кыргызстана.' },
+        { bg: '#f1cfc8', kicker: 'Семья и компании', title: 'Коттеджи и базы отдыха', text: 'Для больших компаний, праздников и корпоративных выездов.' },
+        { bg: '#faf4e8', kicker: 'Бизнес', title: 'Коммерческая недвижимость', text: 'Офисы, помещения под магазин, кафе и студии.' },
+        { bg: '#cfe3d4', kicker: 'Владельцам', title: 'Управление вашим жильём', text: 'Найдём арендаторов, заселим, следим за порядком и платежами.' },
+        { bg: '#f1cfc8', kicker: 'Сервис', title: 'Трансфер и сопровождение', text: 'Встретим, отвезём, покажем окрестности и поможем с экскурсиями.' }
+      ],
+      steps: [
+        { n: '01', title: 'Заявка', text: 'Расскажите о датах, бюджете и пожеланиях.' },
+        { n: '02', title: 'Подбор', text: 'Предложим 3–5 проверенных вариантов с фото.' },
+        { n: '03', title: 'Просмотр', text: 'Покажем объект лично или по видеозвонку.' },
+        { n: '04', title: 'Договор и заселение', text: 'Оформим договор и передадим ключи.' }
+      ],
+      faq: [
+        { q: 'Какой залог нужен?', a: 'Обычно сумма в размере одних суток или одного месяца. Условия указаны в договоре.' },
+        { q: 'Можно ли с животными?', a: 'Есть объекты, где можно. Укажите это в заявке, и мы подберём подходящие.' },
+        { q: 'Когда лучше бронировать Иссык-Куль?', a: 'На июль и август — за 2–3 месяца. В остальные сезоны хватает нескольких недель.' },
+        { q: 'Как сдать своё жильё?', a: 'Оставьте заявку, мы оценим объект, сделаем фото и найдём арендаторов.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
