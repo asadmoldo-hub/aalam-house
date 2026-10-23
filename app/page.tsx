@@ -1,20 +1,16 @@
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import { LeadForm } from "@/components/LeadForm";
-import {
-  company,
-  faq,
-  listings,
-  nav,
-  perks,
-  places,
-  reviews,
-  services,
-  stats,
-  steps,
-} from "@/lib/content";
+import { ChatWidget } from "@/components/ChatWidget";
+import { company as staticCompany, faq, nav, perks, places, reviews, stats, steps } from "@/lib/content";
+import { getLandingData } from "@/lib/public-data";
 
-const jsonLd = {
+// Каталог, услуги и контакты берутся из Supabase; админка сбрасывает кэш при изменениях
+export const revalidate = 300;
+
+export default async function Home() {
+  const { company, services, listings, chat } = await getLandingData();
+  const jsonLd = {
   "@context": "https://schema.org",
   "@type": "RealEstateAgent",
   name: company.name,
@@ -23,20 +19,19 @@ const jsonLd = {
   address: {
     "@type": "PostalAddress",
     streetAddress: company.address,
-    addressRegion: company.region,
+    addressRegion: staticCompany.region,
     addressCountry: "KG",
   },
   openingHours: "Mo-Su 09:00-20:00",
-};
+  };
 
-export default function Home() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Header />
+      <Header phone={company.phone} phoneHref={company.phoneHref} />
 
       <main>
         <section className="hero pad">
@@ -100,7 +95,7 @@ export default function Home() {
           <p className="sub">Несколько вариантов из базы. Полную подборку пришлём под ваш запрос.</p>
           <div className="grid grid-300">
             {listings.map((l) => (
-              <article key={l.title} className="listing">
+              <article key={l.id ?? l.title} className="listing">
                 <div className={`listing-photo tone-${l.tone}`}>
                   <span>{l.type}</span>
                 </div>
@@ -246,10 +241,10 @@ export default function Home() {
               <iframe
                 className="map"
                 title="Офис на карте"
-                src={company.mapEmbed}
+                src={staticCompany.mapEmbed}
                 loading="lazy"
               />
-              <a href={company.mapLink} target="_blank" rel="noopener" className="small">
+              <a href={staticCompany.mapLink} target="_blank" rel="noopener" className="small">
                 Открыть карту крупнее
               </a>
             </div>
@@ -262,7 +257,7 @@ export default function Home() {
         <div>
           <b className="footer-brand">{company.name}</b>
           <div>{company.tagline}</div>
-          <div className="small">{company.inn}</div>
+          <div className="small">{staticCompany.inn}</div>
         </div>
         <nav className="footer-nav" aria-label="Разделы">
           {nav.map((item) => (
@@ -292,6 +287,7 @@ export default function Home() {
           />
         </svg>
       </a>
+      {chat.enabled && <ChatWidget greeting={chat.greeting} />}
     </>
   );
 }

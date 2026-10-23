@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { company, nav } from "@/lib/content";
+import { nav } from "@/lib/content";
 
-export function Header() {
+export function Header({ phone, phoneHref }: { phone: string; phoneHref: string }) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
@@ -26,8 +26,8 @@ export function Header() {
             {item.label}
           </a>
         ))}
-        <a href={company.phoneHref} className="nav-phone">
-          {company.phone}
+        <a href={phoneHref} className="nav-phone">
+          {phone}
         </a>
       </nav>
     </header>

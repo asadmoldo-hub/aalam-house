@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { leadOptions } from "@/lib/content";
 
-type Status = "idle" | "sending" | "sent" | "error";
+type Status = "idle" | "sending" | "sent" | "error" | "limited";
 
 export function LeadForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -18,7 +18,7 @@ export function LeadForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      setStatus(res.ok ? "sent" : "error");
+      setStatus(res.ok ? "sent" : res.status === 429 ? "limited" : "error");
     } catch {
       setStatus("error");
     }
@@ -61,6 +61,7 @@ export function LeadForm() {
           ))}
         </select>
       </label>
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hp" aria-hidden />
       <label>
         Пожелания
         <textarea name="message" rows={3} maxLength={1000} placeholder="Даты, число гостей, бюджет" />
@@ -68,6 +69,11 @@ export function LeadForm() {
       <button type="submit" className="btn btn-primary" disabled={status === "sending"}>
         {status === "sending" ? "Отправляем…" : "Отправить заявку"}
       </button>
+      {status === "limited" && (
+        <p className="form-error" role="alert">
+          Слишком много заявок с вашего устройства. Попробуйте через час или позвоните нам.
+        </p>
+      )}
       {status === "error" && (
         <p className="form-error" role="alert">
           Не получилось отправить. Позвоните нам или напишите в WhatsApp.

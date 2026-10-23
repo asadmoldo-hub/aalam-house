@@ -1,56 +1,39 @@
 import { NextResponse } from "next/server";
-
-type Lead = { name?: unknown; phone?: unknown; topic?: unknown; message?: unknown };
-
-const str = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice(0, max) : "");
+import { createLead, leadInput } from "@/lib/leads";
+import { allow, clientKey } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
-  let body: Lead;
+  let body: Record<string, unknown>;
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ ok: false, error: "bad_json" }, { status: 400 });
   }
 
-  const lead = {
-    name: str(body.name, 80),
-    phone: str(body.phone, 20),
-    topic: str(body.topic, 100),
-    message: str(body.message, 1000),
-  };
-
-  if (!lead.name || !/^[+0-9 ()\-]{7,20}$/.test(lead.phone)) {
-    return NextResponse.json({ ok: false, error: "invalid" }, { status: 422 });
-  }
-
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-
-  // Без настроенного бота заявка просто пишется в лог (видно в Vercel → Logs)
-  if (!token || !chatId) {
-    console.log("[lead]", lead);
+  // Ловушка для ботов: скрытое поле, которое человек не заполняет
+  if (typeof body.website === "string" && body.website.length > 0) {
     return NextResponse.json({ ok: true });
   }
 
-  const text = [
-    "Новая заявка с сайта",
-    `Имя: ${lead.name}`,
-    `Телефон: ${lead.phone}`,
-    `Тема: ${lead.topic}`,
-    lead.message && `Пожелания: ${lead.message}`,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: chatId, text }),
+  const parsed = leadInput.safeParse({
+    name: body.name,
+    phone: body.phone,
+    topic: body.topic || undefined,
+    message: body.message || undefined,
   });
-
-  if (!res.ok) {
-    console.error("[lead] telegram error", res.status, await res.text());
-    return NextResponse.json({ ok: false }, { status: 502 });
+  if (!parsed.success) {
+    return NextResponse.json({ ok: false, error: "invalid", issues: parsed.error.issues }, { status: 422 });
   }
-  return NextResponse.json({ ok: true });
+
+  if (!(await allow(`lead:${clientKey(req)}`, 5, 3600))) {
+    return NextResponse.json({ ok: false, error: "rate_limited" }, { status: 429 });
+  }
+
+  try {
+    await createLead(parsed.data, "website_form");
+    return NextResponse.json({ ok: true });
+  } catch (e) {
+    console.error("[lead]", e instanceof Error ? e.message : e);
+    return NextResponse.json({ ok: false }, { status: 500 });
+  }
 }
